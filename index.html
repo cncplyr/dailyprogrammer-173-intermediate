@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Daily Programmer - #173 - Intermediate</title>
+	
+	<!-- Ours -->
+	<script src="js/map.js"></script>
+	<script src="js/simulation.js"></script>
+	
+	<!-- 3rd Party -->
+	<script src="js/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500"></canvas>
+	<button type="button" onclick="reset();">Reset</button>
+	<button type="button" onclick="tick();">Tick</button>
+	<button type="button" onclick="toggleRun();">Run/Stop</button>
+	
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var cellSize = 10;
+		var simulationSize = 75
+		var s = new Simulation(simulationSize);
+		var running = false;
+		
+		var colours = {
+			0: 'rgb(251, 251, 251)',
+			1: 'rgb(251, 152, 152)',
+			2: 'rgb(251, 251, 152)',
+			3: 'rgb(152, 251, 152)',
+			4: 'rgb(152, 251, 251)',
+			5: 'rgb(152, 152, 251)',
+			6: 'rgb(152, 152, 152)',
+			7: 'rgb(200, 152, 152)',
+			8: 'rgb(152, 200, 152)',
+			9: 'rgb(152, 152, 200)'
+		}
+		
+		draw();
+		setInterval('run()', 1);
+		
+		function reset() {
+			s = new Simulation(simulationSize);
+			draw();
+		}
+		
+		function toggleRun(){
+			if (!running) {
+				running = true;
+			} else {
+				running = false;
+			}
+		}
+		
+		function run() {
+			if (running) {
+				tick();
+			}
+		}
+	
+		function tick() {
+			s.tick();
+			draw();
+		}
+	
+		function draw() {
+			canvas.width = canvas.width;
+			var ctx = canvas.getContext('2d');x
+			
+			var size = cellSize;
+			var map = s.map
+			
+			ctx.save();
+			ctx.translate(size, size);
+			
+			for(var x = 0; x < map.mapSize; x++){
+				for(var y = 0; y < map.mapSize; y++){
+					var cell = map.get(x, y);
+				
+					ctx.fillStyle = colours[cell];
+				
+					// Draw a circle where the animal is
+					ctx.moveTo(x*size+(size/2),y*size);
+					ctx.beginPath();
+					ctx.arc(x*size, y*size, size/2, 0, 2*Math.PI);
+					ctx.closePath();
+					ctx.fill();
+				}
+			}
+			
+			ctx.restore();
+		}
+	</script>
+</body>
+</html>

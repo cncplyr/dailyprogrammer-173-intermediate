@@ -18,11 +18,11 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-10">
-				<canvas id="canvas" width="500" height="500"></canvas>
+				<canvas id="canvas" width="600" height="600"></canvas>
 			</div>
 			<div class="col-md-2 panel panel-default">
 				<div class="panel-body">
-				<button type="button" class="btn btn-default btn-block" onclick="reset();">New Game</button>
+				<button type="button" class="btn btn-default btn-block" onclick="reset();">Reset</button>
 				<button hidden="true" type="button" class="btn btn-default btn-block" onclick="tick();">Tick</button>
 				<button type="button" class="btn btn-primary btn-block" onclick="toggleRun();">Start/Stop</button>
 				</div>
@@ -32,8 +32,8 @@
 	
 	<script type="text/javascript">
 		var canvas = document.getElementById('canvas');
-		var cellSize = 6;
-		var simulationSize = 75
+		var cellSize = 10;
+		var simulationSize = 59
 		var s = new Simulation(simulationSize);
 		var running = false;
 		
@@ -51,7 +51,7 @@
 		}
 		
 		draw();
-		setInterval('run()', 1);
+		setInterval('run()', 50);
 		
 		function reset() {
 			s = new Simulation(simulationSize);

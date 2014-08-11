@@ -9,20 +9,21 @@ function Simulation(mapSize) {
 	this.ant = new Ant(Math.floor(mapSize / 2), Math.floor(mapSize / 2), mapSize, this.rules);
 }
 
-/**
- * Called to run a single tick on every agent in the simulation
- */
 Simulation.prototype.tick = function() {
-	if (this.ticks % 100 === 0) {
-		console.log('ticks: ' + this.ticks);
+	// Run 5 moves per tick
+	// TODO: Really we should improve the draw efficiency instead of this
+	for (var i = 0; i < 5; i++) {
+		if (this.ticks % 100 === 0) {
+			console.log('ticks: ' + this.ticks);
+		}
+		
+		var x = this.ant.x;
+		var y = this.ant.y;
+		var move = this.ant.tick(this.map.get(x, y));
+		this.map.put(x, y, move);	
+		
+		this.ticks++;	
 	}
-	
-	var x = this.ant.x;
-	var y = this.ant.y;
-	var move = this.ant.tick(this.map.get(x, y));
-	this.map.put(x, y, move);	
-	
-	this.ticks++;	
 }
 Simulation.prototype.parseRules = function(rules) {
 	this.rules = rules;
